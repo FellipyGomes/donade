@@ -143,7 +143,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
+    
 alert("Firebase iniciado");
 
 document
@@ -156,23 +156,24 @@ document
     alert("Nome: " + nome);
     alert("Telefone: " + telefone);
 
-    try {
+    alert("Antes do addDoc");
 
-      await addDoc(collection(db, "clientes"), {
-        nome: nome,
-        telefone: telefone,
-        pontos: 0
-      });
+try {
 
-      alert("SALVOU NO FIREBASE!");
+  await addDoc(collection(db, "clientes"), {
+    nome: nome,
+    telefone: telefone,
+    pontos: 0
+  });
 
-    } catch (erro) {
+  alert("SALVOU NO FIREBASE!");
 
-      alert("ERRO:");
-      alert(erro.message);
+} catch (erro) {
 
-    }
+  alert("ERRO:");
+  alert(String(erro));
 
+}
 });
    
 </script>
