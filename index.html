@@ -159,8 +159,10 @@ document
     alert("Antes do addDoc");
 
 try {
-
-  await addDoc(collection(db, "clientes"), {
+alert("Coleção criada");
+const clientes = collection(db, "clientes");
+alert("Referência criada");
+  await addDoc(clientes, {
     nome: nome,
     telefone: telefone,
     pontos: 0
