@@ -123,7 +123,8 @@
     </div>
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
 import {
   getFirestore,
@@ -131,28 +132,23 @@ import {
   addDoc
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyByPVL7_1BNkWzv-WbnQ-EM3zjUyA9Qflc",
-    authDomain: "donadeconfe.firebaseapp.com",
-    projectId: "donadeconfe",
-    storageBucket: "donadeconfe.firebasestorage.app",
-    messagingSenderId: "157881255215",
-    appId: "1:157881255215:web:212f1c5906436c1879cdda",
-    measurementId: "G-367D6NTQPE"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyByPVL7_1BNkWzv-WbnQ-EM3zjUyA9Qflc",
+  authDomain: "donadeconfe.firebaseapp.com",
+  projectId: "donadeconfe",
+  storageBucket: "donadeconfe.firebasestorage.app",
+  messagingSenderId: "157881255215",
+  appId: "1:157881255215:web:212f1c5906436c1879cdda"
+};
 
-  const app = initializeApp(firebaseConfig);
-    alert("Firebase iniciado");
-  const db = getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-  const form = document.getElementById("loginForm");
-    alert("Form encontrado");
+alert("Firebase iniciado");
 
 document
   .getElementById("entrarBtn")
   .addEventListener("click", async () => {
-
-    alert("Clique detectado");
 
     const nome = document.getElementById("nome").value.trim();
     const telefone = document.getElementById("telefone").value.trim();
@@ -160,61 +156,25 @@ document
     alert("Nome: " + nome);
     alert("Telefone: " + telefone);
 
-});
-  e.preventDefault();
+    try {
 
-  const nome = document.getElementById("nome").value.trim();
-  const telefone = document.getElementById("telefone").value.trim();
+      await addDoc(collection(db, "clientes"), {
+        nome: nome,
+        telefone: telefone,
+        pontos: 0
+      });
 
-  alert("Nome: " + nome);
-  alert("Telefone: " + telefone);
+      alert("SALVOU NO FIREBASE!");
 
-  try {
+    } catch (erro) {
 
-    const clientesRef = collection(db, "clientes");
+      alert("ERRO:");
+      alert(erro.message);
 
-    const q = query(
-      clientesRef,
-      where("telefone", "==", telefone)
-    );
-
-    alert("Consultando Firebase...");
-
-try {
-
-  const resultado = await getDocs(q);
-
-  alert("Consulta concluída!");
-
-  if (resultado.empty) {
-
-    alert("Cliente não encontrado");
-
-    await addDoc(clientesRef, {
-      nome,
-      telefone,
-      pontos: 0,
-      criadoEm: new Date()
-    });
-
-    alert("Cadastro criado com sucesso!");
-
-  } else {
-
-    alert("Bem-vindo de volta!");
-
-  }
-
-} catch (erro) {
-
-  alert("ERRO FIREBASE:");
-  alert(erro.message);
-  alert(JSON.stringify(erro));
-
-}
+    }
 
 });
-    
+   
 </script>
 
 </body>
