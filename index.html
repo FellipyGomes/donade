@@ -122,9 +122,17 @@
 
     </div>
 
- <script type="module">
+<script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+  import {
+    getFirestore,
+    collection,
+    query,
+    where,
+    getDocs,
+    addDoc
+  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyByPVL7_1BNkWzv-WbnQ-EM3zjUyA9Qflc",
@@ -139,50 +147,45 @@
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  console.log("Firestore conectado!");
-     import {
-  collection,
-  query,
-  where,
-  getDocs,
-  addDoc
-} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+  const form = document.getElementById("loginForm");
 
-const form = document.getElementById("loginForm");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+    const nome = document.getElementById("nome").value.trim();
+    const telefone = document.getElementById("telefone").value.trim();
 
-  const nome = document.getElementById("nome").value.trim();
-  const telefone = document.getElementById("telefone").value.trim();
+    if (!nome || !telefone) {
+      alert("Preencha todos os campos.");
+      return;
+    }
 
-  if (!nome || !telefone) {
-    alert("Preencha todos os campos");
-    return;
-  }
+    const clientesRef = collection(db, "clientes");
 
-  const clientesRef = collection(db, "clientes");
+    const q = query(
+      clientesRef,
+      where("telefone", "==", telefone)
+    );
 
-  const q = query(
-    clientesRef,
-    where("telefone", "==", telefone)
-  );
+    const resultado = await getDocs(q);
 
-  const resultado = await getDocs(q);
+    if (resultado.empty) {
 
-  if (resultado.empty) {
-    await addDoc(clientesRef, {
-      nome,
-      telefone,
-      pontos: 0,
-      criadoEm: new Date()
-    });
+      await addDoc(clientesRef, {
+        nome: nome,
+        telefone: telefone,
+        pontos: 0,
+        criadoEm: new Date()
+      });
 
-    alert("Cadastro criado!");
-  } else {
-    alert("Bem-vindo de volta!");
-  }
-});
+      alert("Cadastro criado com sucesso!");
+
+    } else {
+
+      alert("Bem-vindo de volta!");
+
+    }
+  });
 </script>
 
 </body>
