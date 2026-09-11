@@ -13,7 +13,6 @@
             font-family: Arial, sans-serif;
         }
 
-        
         body {
             background-color: #fff5f8;
             display: flex;
@@ -115,17 +114,17 @@
             >
 
            <button type="button" id="entrarBtn">
-    Entrar
-</button>
+                Entrar
+            </button>
 
         </form>
 
     </div>
 
-   <script type="module">
+<script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+import { initializeFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyByPVL7_1BNkWzv-WbnQ-EM3zjUyA9Qflc",
@@ -137,7 +136,14 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+
+// Inicialização com força de polling e streams desativadas para contornar bloqueios de rede móvel
+const db = initializeFirestore(app, {
+    experimentalForceLongPolling: true,
+    useFetchStreams: false
+});
+
+console.log("FIREBASE OK");
 
 const botao = document.getElementById("entrarBtn");
 
@@ -152,7 +158,6 @@ botao.addEventListener("click", async function() {
     try {
         alert("3 - Vou tentar salvar");
 
-        // Cria uma promessa de salvamento com limite de 4 segundos
         const salvarPromise = addDoc(collection(db, "clientes"), {
             nome: nome,
             telefone: telefone,
@@ -174,5 +179,6 @@ botao.addEventListener("click", async function() {
 });
 
 </script>
+
 </body>
 </html>
