@@ -13,6 +13,24 @@
             font-family: Arial, sans-serif;
         }
 
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyByPVL7_1BNkWzv-WbnQ-EM3zjUyA9Qflc",
+    authDomain: "donadeconfe.firebaseapp.com",
+    projectId: "donadeconfe",
+    storageBucket: "donadeconfe.firebasestorage.app",
+    messagingSenderId: "157881255215",
+    appId: "1:157881255215:web:212f1c5906436c1879cdda",
+    measurementId: "G-367D6NTQPE"
+  };
+
+  const app = initializeApp(firebaseConfig);
+
+  console.log("Firebase conectado!");
+</script>
+        
         body {
             background-color: #fff5f8;
             display: flex;
