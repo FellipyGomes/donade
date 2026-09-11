@@ -101,7 +101,7 @@
             <input
                 type="text"
                 id="nome"
-                placeholder=""
+                placeholder="Luiz"
             >
 
             <label for="telefone">
@@ -156,8 +156,11 @@
     e.preventDefault();
 
     const nome = document.getElementById("nome").value.trim();
-    const telefone = document.getElementById("telefone").value.trim();
+const telefone = document.getElementById("telefone").value.trim();
 
+alert("Nome: " + nome);
+alert("Telefone: " + telefone);
+      
     if (!nome || !telefone) {
       alert("Preencha todos os campos.");
       return;
