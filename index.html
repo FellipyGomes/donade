@@ -139,8 +139,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-console.log("FIREBASE OK");
-
 const botao = document.getElementById("entrarBtn");
 
 botao.addEventListener("click", async function() {
@@ -154,21 +152,27 @@ botao.addEventListener("click", async function() {
     try {
         alert("3 - Vou tentar salvar");
 
-        const docRef = await addDoc(collection(db, "clientes"), {
+        // Cria uma promessa de salvamento com limite de 4 segundos
+        const salvarPromise = addDoc(collection(db, "clientes"), {
             nome: nome,
             telefone: telefone,
             pontos: 0
         });
 
+        const timeoutPromise = new Promise((_, reject) => 
+            setTimeout(() => reject(new Error("TIMED_OUT: O Firebase demorou muito para responder")), 4000)
+        );
+
+        const docRef = await Promise.race([salvarPromise, timeoutPromise]);
+
         alert("4 - SALVOU! ID: " + docRef.id);
 
     } catch (erro) {
-        alert("ERRO CAPTURADO: " + erro.message);
+        alert("FALHOU: " + erro.message);
         console.error("Erro detalhado:", erro);
     }
 });
 
 </script>
-
 </body>
 </html>
