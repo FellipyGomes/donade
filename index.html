@@ -171,34 +171,39 @@ form.addEventListener("submit", async (e) => {
 
     alert("Consultando Firebase...");
 
-    const resultado = await getDocs(q);
+try {
 
-    alert("Consulta concluída");
+  const resultado = await getDocs(q);
 
-    if (resultado.empty) {
+  alert("Consulta concluída!");
 
-      alert("Cliente não encontrado");
+  if (resultado.empty) {
 
-      await addDoc(clientesRef, {
-        nome,
-        telefone,
-        pontos: 0,
-        criadoEm: new Date()
-      });
+    alert("Cliente não encontrado");
 
-      alert("Cadastro criado com sucesso!");
+    await addDoc(clientesRef, {
+      nome,
+      telefone,
+      pontos: 0,
+      criadoEm: new Date()
+    });
 
-    } else {
+    alert("Cadastro criado com sucesso!");
 
-      alert("Bem-vindo de volta!");
+  } else {
 
-    }
-
-  } catch (erro) {
-
-    alert("ERRO: " + erro.message);
+    alert("Bem-vindo de volta!");
 
   }
+
+} catch (erro) {
+
+  alert("ERRO FIREBASE:");
+  alert(erro.message);
+  alert(JSON.stringify(erro));
+
+}
+
 });
     
 </script>
