@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teste teste</title>
+    <title>Teste Realtime Database</title>
 
     <style>
         * {
@@ -124,7 +124,7 @@
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-import { initializeFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyByPVL7_1BNkWzv-WbnQ-EM3zjUyA9Qflc",
@@ -136,14 +136,9 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-// Inicialização com força de polling e streams desativadas para contornar bloqueios de rede móvel
-const db = initializeFirestore(app, {
-    experimentalForceLongPolling: true,
-    useFetchStreams: false
-});
-
-console.log("FIREBASE OK");
+console.log("FIREBASE REALTIME OK");
 
 const botao = document.getElementById("entrarBtn");
 
@@ -158,19 +153,15 @@ botao.addEventListener("click", async function() {
     try {
         alert("3 - Vou tentar salvar");
 
-        const salvarPromise = addDoc(collection(db, "clientes"), {
+        // Cria uma referência na pasta "clientes" e insere os dados
+        const clientesRef = ref(db, 'clientes');
+        await push(clientesRef, {
             nome: nome,
             telefone: telefone,
             pontos: 0
         });
 
-        const timeoutPromise = new Promise((_, reject) => 
-            setTimeout(() => reject(new Error("TIMED_OUT: O Firebase demorou muito para responder")), 4000)
-        );
-
-        const docRef = await Promise.race([salvarPromise, timeoutPromise]);
-
-        alert("4 - SALVOU! ID: " + docRef.id);
+        alert("4 - SALVOU NO REALTIME COM SUCESSO!");
 
     } catch (erro) {
         alert("FALHOU: " + erro.message);
