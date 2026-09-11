@@ -122,12 +122,12 @@
 
     </div>
 
-<script type="module">
+    <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
 import {
-    initializeFirestone,
+    getFirestore,
     collection,
     addDoc
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
@@ -142,7 +142,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = initializeFirestore(app, {experimentalForceLongPolling: true});(app);
+const db = getFirestore(app);
 
 console.log("FIREBASE OK");
 
@@ -183,6 +183,5 @@ botao.addEventListener("click", async function() {
 });
 
 </script>
-
 </body>
 </html>
