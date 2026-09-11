@@ -143,52 +143,48 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-    
-alert("Firebase iniciado");
 
-document
-  .getElementById("entrarBtn")
-  .addEventListener("click", async () => {
+console.log("🔥 Firebase iniciado");
+
+document.getElementById("entrarBtn").addEventListener("click", async () => {
 
     const nome = document.getElementById("nome").value.trim();
     const telefone = document.getElementById("telefone").value.trim();
 
-    alert("Nome: " + nome);
-    alert("Telefone: " + telefone);
+    console.log("Nome:", nome);
+    console.log("Telefone:", telefone);
 
-    alert("Antes do addDoc");
+    try {
 
-try {
-    alert(“Coleção criada”);
+        console.log("📡 Tentando salvar...");
 
-    const clientes = collection(db, “clientes”);
+        const clientes = collection(db, "clientes");
 
-    alert(“Referência criada”);
-
-    const resultado = await Promise.race([
-        addDoc(clientes, {
+        const docRef = await addDoc(clientes, {
             nome: nome,
             telefone: telefone,
             pontos: 0
-        }),
-        new Promise((_, reject) =>
-            setTimeout(() => reject(new Error(“TIMEOUT: Firebase não respondeu em 10 segundos”)), 10000)
-        )
-    ]);
+        });
 
-    alert(“SALVOU NO FIREBASE!”);
-    alert(“ID: “ + resultado.id);
+        console.log("✅ SALVOU NO FIREBASE!");
+        console.log("ID criado:", docRef.id);
 
-} catch (erro) {
+        alert("Cadastro realizado com sucesso!");
 
-    alert(“DEU ERRO NO FIREBASE!”);
-    alert(erro.code || “sem código”);
-    alert(erro.message || String(erro));
+    } catch (erro) {
 
-    console.error(“ERRO FIREBASE:”, erro);
-}
+        console.error("❌ ERRO DO FIREBASE:", erro);
+
+        alert(
+            "Erro ao salvar:\n\n" +
+            (erro.code || "") +
+            "\n" +
+            (erro.message || erro)
+        );
+    }
+
 });
-   
+
 </script>
 
 </body>
