@@ -92,7 +92,7 @@
             Docê é amor, em forma de sabor!
         </p>
 
-        <form>
+        <form id="loginForm">
 
             <label for="nome">
                 Primeiro Nome
@@ -101,7 +101,7 @@
             <input
                 type="text"
                 id="nome"
-                placeholder="Luiz"
+                placeholder=""
             >
 
             <label for="telefone">
@@ -111,7 +111,7 @@
             <input
                 type="tel"
                 id="telefone"
-                placeholder="(21) 99999-9999"
+                placeholder="19999999999"
             >
 
             <button type="submit">
@@ -122,10 +122,68 @@
 
     </div>
 
-   <script>
-console.log("JAVASCRIPT OK");
+ <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyByPVL7_1BNkWzv-WbnQ-EM3zjUyA9Qflc",
+    authDomain: "donadeconfe.firebaseapp.com",
+    projectId: "donadeconfe",
+    storageBucket: "donadeconfe.firebasestorage.app",
+    messagingSenderId: "157881255215",
+    appId: "1:157881255215:web:212f1c5906436c1879cdda",
+    measurementId: "G-367D6NTQPE"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  console.log("Firestore conectado!");
+     import {
+  collection,
+  query,
+  where,
+  getDocs,
+  addDoc
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+const form = document.getElementById("loginForm");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const nome = document.getElementById("nome").value.trim();
+  const telefone = document.getElementById("telefone").value.trim();
+
+  if (!nome || !telefone) {
+    alert("Preencha todos os campos");
+    return;
+  }
+
+  const clientesRef = collection(db, "clientes");
+
+  const q = query(
+    clientesRef,
+    where("telefone", "==", telefone)
+  );
+
+  const resultado = await getDocs(q);
+
+  if (resultado.empty) {
+    await addDoc(clientesRef, {
+      nome,
+      telefone,
+      pontos: 0,
+      criadoEm: new Date()
+    });
+
+    alert("Cadastro criado!");
+  } else {
+    alert("Bem-vindo de volta!");
+  }
+});
 </script>
-    <script>alert("TESTE");
-</script>
+
 </body>
 </html>
