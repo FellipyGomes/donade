@@ -123,70 +123,63 @@
     </div>
 
 <script type="module">
-    
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-    alert("VERSÃO NOVA DO CÓDIGO");
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
 import {
-  getFirestore,
-  collection,
-  addDoc
+    getFirestore,
+    collection,
+    addDoc
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyByPVL7_1BNkWzv-WbnQ-EM3zjUyA9Qflc",
-  authDomain: "donadeconfe.firebaseapp.com",
-  projectId: "donadeconfe",
-  storageBucket: "donadeconfe.firebasestorage.app",
-  messagingSenderId: "157881255215",
-  appId: "1:157881255215:web:212f1c5906436c1879cdda"
+    apiKey: "AIzaSyByPVL7_1BNkWzv-WbnQ-EM3zjUyA9Qflc",
+    authDomain: "donadeconfe.firebaseapp.com",
+    projectId: "donadeconfe",
+    storageBucket: "donadeconfe.firebasestorage.app",
+    messagingSenderId: "157881255215",
+    appId: "1:157881255215:web:212f1c5906436c1879cdda"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-console.log("🔥 Firebase iniciado");
+console.log("FIREBASE OK");
 
-document.getElementById("entrarBtn").addEventListener("click", async () => {
+const botao = document.getElementById("entrarBtn");
 
-    const nome = document.getElementById("nome").value.trim();
-    const telefone = document.getElementById("telefone").value.trim();
+botao.addEventListener("click", async function() {
 
-    console.log("Nome:", nome);
-    console.log("Telefone:", telefone);
+    alert("1 - BOTÃO FUNCIONOU");
+
+    const nome = document.getElementById("nome").value;
+    const telefone = document.getElementById("telefone").value;
+
+    alert("2 - Nome: " + nome);
 
     try {
 
-        console.log("📡 Tentando salvar...");
+        alert("3 - Vou tentar salvar");
 
-        const clientes = collection(db, "clientes");
-
-        document.body.insertAdjacentHTML(
-            "beforeend",
-            "<h2 id='testeFirebase' style='position:fixed;top;10px;left:10px;z-index:99999;background:white;color:red;padding:20px'>CHEGUEI NO ADDD0C</h2>"
-        const docRef = await addDoc(clientes, {
+        const docRef = await addDoc(collection(db, "clientes"), {
             nome: nome,
             telefone: telefone,
             pontos: 0
         });
 
-        console.log("✅ SALVOU NO FIREBASE!");
-        console.log("ID criado:", docRef.id);
-
-        alert("Cadastro realizado com sucesso!");
+        alert("4 - SALVOU! ID: " + docRef.id);
 
     } catch (erro) {
 
-        console.error("❌ ERRO DO FIREBASE:", erro);
+        alert("5 - DEU ERRO");
+
+        console.error(erro);
 
         alert(
-            "Erro ao salvar:\n\n" +
-            (erro.code || "") +
-            "\n" +
-            (erro.message || erro)
+            "Código: " + erro.code +
+            "\n\nMensagem: " + erro.message
         );
     }
-
 });
 
 </script>
