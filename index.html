@@ -160,6 +160,9 @@ document.getElementById("entrarBtn").addEventListener("click", async () => {
 
         const clientes = collection(db, "clientes");
 
+        document.body.insertAdjacentHTML(
+            "beforeend",
+            "<h2 id='testeFirebase' style='position:fixed;top;10px;left:10px;z-index:99999;background:white;color:red;padding:20px'>CHEGUEI NO ADDD0C</h2>"
         const docRef = await addDoc(clientes, {
             nome: nome,
             telefone: telefone,
