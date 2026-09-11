@@ -92,7 +92,7 @@
             Docê é amor, em forma de sabor!
         </p>
 
-        <form id="loginForm">
+       <form id="loginForm" onsubmit="return false;">
 
             <label for="nome">
                 Primeiro Nome
@@ -114,9 +114,9 @@
                 placeholder="19999999999"
             >
 
-            <button type="submit">
-                Entrar
-            </button>
+           <button type="button" id="entrarBtn">
+    Entrar
+</button>
 
         </form>
 
@@ -151,7 +151,19 @@
   const form = document.getElementById("loginForm");
     alert("Form encontrado");
 
-form.addEventListener("submit", async (e) => {
+document
+  .getElementById("entrarBtn")
+  .addEventListener("click", async () => {
+
+    alert("Clique detectado");
+
+    const nome = document.getElementById("nome").value.trim();
+    const telefone = document.getElementById("telefone").value.trim();
+
+    alert("Nome: " + nome);
+    alert("Telefone: " + telefone);
+
+});
   e.preventDefault();
 
   const nome = document.getElementById("nome").value.trim();
