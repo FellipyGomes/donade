@@ -151,20 +151,16 @@
   const form = document.getElementById("loginForm");
     alert("Form encontrado");
 
-  form.addEventListener("submit", async (e) => {
-      alert("Clique detectado");
-    e.preventDefault();
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-    const nome = document.getElementById("nome").value.trim();
-const telefone = document.getElementById("telefone").value.trim();
+  const nome = document.getElementById("nome").value.trim();
+  const telefone = document.getElementById("telefone").value.trim();
 
-alert("Nome: " + nome);
-alert("Telefone: " + telefone);
-      
-    if (!nome || !telefone) {
-      alert("Preencha todos os campos.");
-      return;
-    }
+  alert("Nome: " + nome);
+  alert("Telefone: " + telefone);
+
+  try {
 
     const clientesRef = collection(db, "clientes");
 
@@ -173,13 +169,19 @@ alert("Telefone: " + telefone);
       where("telefone", "==", telefone)
     );
 
+    alert("Consultando Firebase...");
+
     const resultado = await getDocs(q);
+
+    alert("Consulta concluída");
 
     if (resultado.empty) {
 
+      alert("Cliente não encontrado");
+
       await addDoc(clientesRef, {
-        nome: nome,
-        telefone: telefone,
+        nome,
+        telefone,
         pontos: 0,
         criadoEm: new Date()
       });
@@ -191,7 +193,14 @@ alert("Telefone: " + telefone);
       alert("Bem-vindo de volta!");
 
     }
-  });
+
+  } catch (erro) {
+
+    alert("ERRO: " + erro.message);
+
+  }
+});
+    
 </script>
 
 </body>
