@@ -145,11 +145,14 @@
   };
 
   const app = initializeApp(firebaseConfig);
+    alert("Firebase iniciado");
   const db = getFirestore(app);
 
   const form = document.getElementById("loginForm");
+    alert("Form encontrado");
 
   form.addEventListener("submit", async (e) => {
+      alert("Clique detectado");
     e.preventDefault();
 
     const nome = document.getElementById("nome").value.trim();
