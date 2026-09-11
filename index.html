@@ -159,22 +159,33 @@ document
     alert("Antes do addDoc");
 
 try {
-alert("Coleção criada");
-const clientes = collection(db, "clientes");
-alert("Referência criada");
-  await addDoc(clientes, {
-    nome: nome,
-    telefone: telefone,
-    pontos: 0
-  });
+    alert(“Coleção criada”);
 
-  alert("SALVOU NO FIREBASE!");
+    const clientes = collection(db, “clientes”);
+
+    alert(“Referência criada”);
+
+    const resultado = await Promise.race([
+        addDoc(clientes, {
+            nome: nome,
+            telefone: telefone,
+            pontos: 0
+        }),
+        new Promise((_, reject) =>
+            setTimeout(() => reject(new Error(“TIMEOUT: Firebase não respondeu em 10 segundos”)), 10000)
+        )
+    ]);
+
+    alert(“SALVOU NO FIREBASE!”);
+    alert(“ID: “ + resultado.id);
 
 } catch (erro) {
 
-  alert("ERRO:");
-  alert(String(erro));
+    alert(“DEU ERRO NO FIREBASE!”);
+    alert(erro.code || “sem código”);
+    alert(erro.message || String(erro));
 
+    console.error(“ERRO FIREBASE:”, erro);
 }
 });
    
