@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teste Realtime Database</title>
+    <title>Donade Confeitaria</title>
 
     <style>
         * {
@@ -85,7 +85,7 @@
 
         <div class="logo">🍬</div>
 
-        <h1>Teste Teste</h1>
+        <h1>Donadê Confeitaria</h1>
 
         <p class="subtitle">
             Docê é amor, em forma de sabor!
@@ -94,23 +94,23 @@
        <form id="loginForm" onsubmit="return false;">
 
             <label for="nome">
-                Primeiro Nome
+                Seu nome
             </label>
 
             <input
                 type="text"
                 id="nome"
-                placeholder="Luiz"
+                placeholder=""
             >
 
             <label for="telefone">
-                Telefone
+                Telefone com DDD
             </label>
 
             <input
                 type="tel"
                 id="telefone"
-                placeholder="19999999999"
+                placeholder=""
             >
 
            <button type="button" id="entrarBtn">
@@ -138,20 +138,14 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-console.log("FIREBASE REALTIME OK");
-
 const botao = document.getElementById("entrarBtn");
 
-botao.addEventListener("click", async function() {
-    alert("1 - BOTÃO FUNCIONOU");
+botao.addEventListener("click", async function()
 
     const nome = document.getElementById("nome").value;
     const telefone = document.getElementById("telefone").value;
 
-    alert("2 - Nome: " + nome);
-
     try {
-        alert("3 - Vou tentar salvar");
 
         // Cria uma referência na pasta "clientes" e insere os dados
         const clientesRef = ref(db, 'clientes');
@@ -161,10 +155,7 @@ botao.addEventListener("click", async function() {
             pontos: 0
         });
 
-        alert("4 - SALVOU NO REALTIME COM SUCESSO!");
-
     } catch (erro) {
-        alert("FALHOU: " + erro.message);
         console.error("Erro detalhado:", erro);
     }
 });
