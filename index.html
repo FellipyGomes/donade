@@ -31,20 +31,14 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
-        .logo {
-      width: 76px;
-      height: 76px;
-      border-radius: 50%;
-      background: #111;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 16px;
-      font-size: 25px;
-      font-weight: 800;
-      letter-spacing: -1px;
-    }
+       .logo {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto 16px;
+}
 
         h1 {
             text-align: center;
@@ -94,7 +88,7 @@
     <div class="card">
 
         <header class="brand">
-     <img id="logo" class="logo" src="" alt="Logo">
+     <img id="logo" class="logo" src="logos/donade.png" alt="Logo">
             
         <h1>Donadê Confeitaria</h1>
 
@@ -170,6 +164,7 @@ botao.addEventListener("click", async function(){
         console.error("Erro detalhado:", erro);
     }
 });
+    
 
 </script>
 
