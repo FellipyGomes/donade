@@ -122,7 +122,12 @@ background: transparent;
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
+import {
+getDatabase,
+ref,
+get,
+set
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyByPVL7_1BNkWzv-WbnQ-EM3zjUyA9Qflc",
@@ -140,22 +145,52 @@ const botao = document.getElementById("entrarBtn");
 
 botao.addEventListener("click", async function(){
 
-    const nome = document.getElementById("nome").value;
-    const telefone = document.getElementById("telefone").value;
+    botao.disabled = true;
 
     try {
 
-        // Cria uma referência na pasta "clientes" e insere os dados
-        const clientesRef = ref(db, 'clientes');
-        await push(clientesRef, {
-            nome: nome,
-            telefone: telefone,
-            pontos: 0
-        });
+        const nome = document.getElementById("nome").value.trim();
+        const telefone = document
+    .getElementById("telefone")
+    .value
+    .replace(/\D/g, "");
+
+        if (!nome || !telefone) {
+            alert("Preencha nome e telefone.");
+            return;
+        }
+
+        const clienteRef = ref(db, "clientes/" + telefone);
+
+        const snapshot = await get(clienteRef);
+
+        if (!snapshot.exists()) {
+
+            await set(clienteRef, {
+                nome,
+                telefone,
+                pontos: 0
+            });
+
+            alert("Cadastro realizado com sucesso!");
+
+        } else {
+
+            alert("Bem-vindo de volta!");
+
+        }
 
     } catch (erro) {
-        console.error("Erro detalhado:", erro);
+
+        console.error("Erro:", erro);
+        alert("Ocorreu um erro.");
+
+    } finally {
+
+        botao.disabled = false;
+
     }
+
 });
     
 
