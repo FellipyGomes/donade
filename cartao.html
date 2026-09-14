@@ -8,7 +8,7 @@
 
 <style>
 
-body{
+.body{
     background:#fff5f8;
     display:flex;
     justify-content:center;
@@ -16,15 +16,23 @@ body{
     min-height:100vh;
     font-family:Arial, sans-serif;
 }
+    .logo{
+    width:180px;
+    height:180px;
+    object-fit:contain;
+    display:block;
+    margin:0 auto 15px;
+}
+    .h2{
+    color:#e85d8c;
+    margin-bottom:15px;
+}
 
 .card-fidelidade{
-    background:white;
-    width:100%;
+    width:90%;
     max-width:400px;
-    padding:30px;
-    border-radius:30px;
+    padding:20px;
     text-align:center;
-    box-shadow:0 5px 20px rgba(0,0,0,.1);
 }
 
 .grade-pontos{
@@ -53,9 +61,9 @@ body{
 
 <div class="card-fidelidade">
 
-<img src="logos/
+<img src="logos/donade.png">
 
-<h3>Olá, Cliente!</h3>
+<h2 id="saudacao">Olá, Cliente!</h2>
 
 <p id="mensagem"></p>
 
@@ -69,6 +77,11 @@ const pontosCliente = 3;
 const totalNecessario = 15;
 
 const container = document.getElementById("pontos");
+    
+    const nome = localStorage.getItem("nomeCliente");
+
+document.getElementById("saudacao").innerText =
+`Olá, ${nome}!`;
 
 for(let i=1; i<=totalNecessario; i++){
 
