@@ -98,6 +98,11 @@ body{
     background:#e85d8c;
 }
 
+.pendente{
+    background:#ffd3e2;
+    border-color:#ffb7cf;
+}
+
 </style>
 </head>
 
@@ -178,11 +183,11 @@ if(snapshot.exists()){
     document.getElementById("saudacao").innerText =
         `Olá, ${cliente.nome}!`;
 
-    carregarPontos(cliente.pontos);
+    carregarPontos(cliente.pontos || 0, 2);
 
 }
 
-    function carregarPontos(pontosCliente){
+   function carregarPontos(pontosAprovados, pontosPendentes){
 
     const totalNecessario = 15;
 
@@ -196,17 +201,28 @@ if(snapshot.exists()){
 
         bolinha.classList.add("bolinha");
 
-        if(i <= pontosCliente){
+        if(i <= pontosAprovados){
+
             bolinha.classList.add("preenchida");
+
+        }else if(i <= pontosAprovados + pontosPendentes){
+
+            bolinha.classList.add("pendente");
+
         }
 
         container.appendChild(bolinha);
     }
 
-   const faltam = Math.max(0, totalNecessario - pontosCliente);
+    const faltam =
+        Math.max(
+            0,
+            totalNecessario -
+            (pontosAprovados + pontosPendentes)
+        );
 
     document.getElementById("mensagem").innerText =
-    `Faltam apenas ${faltam} unidades para ganhar seu prêmio!`;
+        `Faltam apenas ${faltam} unidades para ganhar seu prêmio!`;
 }
 
 const btnRegistrar =
@@ -243,23 +259,29 @@ btnRegistrar.addEventListener("click", async () => {
         const novaSolicitacao =
             push(solicitacoesRef);
 
-        await set(novaSolicitacao, {
+     await set(novaSolicitacao, {
 
-            nome: cliente.nome,
+    nome: cliente.nome,
 
-            telefone: cliente.telefone,
+    telefone: cliente.telefone,
 
-            quantidade: quantidade,
+    quantidade: quantidade,
 
-            data: new Date().toLocaleDateString("pt-BR"),
+    dataHora: new Date().toLocaleString("pt-BR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+    }),
 
-            status: "pendente"
+    status: "pendente"
 
-        });
+});
 
-        alert(
-            "Solicitação enviada para aprovação!"
-        );
+       btnRegistrar.textContent = "Aguardando aprovação";
+btnRegistrar.style.background = "#f4b400";
+btnRegistrar.disabled = true;
 
     } catch(erro){
 
