@@ -1,1 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Meu Cartão Fidelidade</title>
+
+<style>
+
+body{
+    background:#fff5f8;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    font-family:Arial, sans-serif;
+}
+
+.card-fidelidade{
+    background:white;
+    width:100%;
+    max-width:400px;
+    padding:30px;
+    border-radius:30px;
+    text-align:center;
+    box-shadow:0 5px 20px rgba(0,0,0,.1);
+}
+
+.grade-pontos{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+    max-width:220px;
+    margin:25px auto;
+}
+
+.bolinha{
+    width:30px;
+    height:30px;
+    border:3px solid #e85d8c;
+    border-radius:50%;
+}
+
+.preenchida{
+    background:#e85d8c;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card-fidelidade">
+
+<img src="logos/
+
+<h3>Olá, Cliente!</h3>
+
+<p id="mensagem"></p>
+
+<div id="pontos" class="grade-pontos"></div>
+
+</div>
+
+<script>
+
+const pontosCliente = 3;
+const totalNecessario = 15;
+
+const container = document.getElementById("pontos");
+
+for(let i=1; i<=totalNecessario; i++){
+
+    const bolinha = document.createElement("div");
+
+    bolinha.classList.add("bolinha");
+
+    if(i <= pontosCliente){
+        bolinha.classList.add("preenchida");
+    }
+
+    container.appendChild(bolinha);
+}
+
+const faltam = totalNecessario - pontosCliente;
+
+document.getElementById("mensagem").innerText =
+`Faltam apenas ${faltam} unidades para ganhar seu pão de mel!`;
+
+</script>
+
+</body>
+</html>
