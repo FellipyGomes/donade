@@ -1,218 +1,155 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Donade Confeitaria</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Donade Confeitaria</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+<style>
 
-        body {
-            background-color: #fff5f8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .card {
-            background: white;
-            width: 100%;
-            max-width: 400px;
-            padding: 30px;
-            border-radius: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-
-       .instagram a {
-    color: #ff77a9;
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 14px;
-    transition: 0.3s
-}
-        .instagram {
-text-align: center;
-margin-top: 20px;
-}
-        .instagram a:hover {
-color: #e85d8c;
-text-decoration: underline;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
 }
 
-       .logo {
-width: 230px;
-height: 230px;
-object-fit: contain;
-display: block;
-margin: 0 auto 16px;
-background: transparent;
+body{
+    background-color:#fff5f8;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:20px;
 }
 
-
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-top: 1px;
-            margin-bottom: 25px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        input {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-
-        button {
-            width: 100%;
-            border: none;
-            background: #e85d8c;
-            color: white;
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #d94d7e;
-        }
-.card-fidelidade{
+.card{
     background:white;
     width:100%;
     max-width:400px;
     padding:30px;
-    border-radius:30px;
-    text-align:center;
+    border-radius:25px;
     box-shadow:0 5px 20px rgba(0,0,0,.1);
 }
 
-.grade-pontos{
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:12px;
-    max-width:220px;
-    margin:25px auto;
+.logo{
+    width:230px;
+    height:230px;
+    object-fit:contain;
+    display:block;
+    margin:0 auto 16px;
 }
 
-.bolinha{
-    width:30px;
-    height:30px;
-    border:3px solid #000;
-    border-radius:50%;
+.subtitle{
+    text-align:center;
+    color:#666;
+    margin-bottom:25px;
 }
 
-.preenchida{
-    background:#000;
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:bold;
 }
-        
-    </style>
+
+input{
+    width:100%;
+    padding:14px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+button{
+    width:100%;
+    border:none;
+    background:#e85d8c;
+    color:white;
+    padding:15px;
+    border-radius:12px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#d94d7e;
+}
+
+.instagram{
+    text-align:center;
+    margin-top:20px;
+}
+
+.instagram a{
+    color:#ff77a9;
+    font-weight:bold;
+    text-decoration:none;
+    font-size:14px;
+    transition:.3s;
+}
+
+.instagram a:hover{
+    color:#e85d8c;
+    text-decoration:underline;
+}
+
+</style>
 </head>
+
 <body>
 
-    <div class="card">
+<div class="card">
 
-        <header class="brand">
-     <img id="logo" class="logo" src="logos/donade.png" alt="Logo">
-            
-                <p class="subtitle">
-            Docê é amor, em forma de sabor!
-        </p>
-
-       <form id="loginForm" onsubmit="return false;">
-
-            <label for="nome">
-                Seu nome
-            </label>
-
-            <input
-                type="text"
-                id="nome"
-                placeholder=""
-            >
-
-            <label for="telefone">
-                Telefone com DDD
-            </label>
-
-            <input
-                type="tel"
-                id="telefone"
-                placeholder=""
-            >
-
-           <button type="button" id="entrarBtn">
-                Entrar
-            </button>
-           <div class="instagram">
-               <a href="https://instagram.com/donadeconfeitaria" target="_blank">
-            @donade.confeitaria
-    </a>
-</div>
-
-           <div class="card-fidelidade">
-
-    logos/donade.png
-
-    <h3 id="saudacao">
-        Olá, Cliente!
-    </h3>
-
-    <p id="mensagem">
-        Faltam 15 unidades para ganhar seu pão de mel!
+    <img class="logo" src="logos/donade.pnge">
+        Docê é amor, em forma de sabor!
     </p>
 
-    <div id="pontos" class="grade-pontos">
-    </div>
+    <form onsubmit="return false;">
 
-    <label>
-        Comprou algum docinho hoje?
-    </label>
+        <label for="nome">
+            Seu nome
+        </label>
 
-    <select id="qtdCompra">
-        <option value="1">1 unidade</option>
-        <option value="2">2 unidades</option>
-        <option value="3">3 unidades</option>
-        <option value="4">4 unidades</option>
-        <option value="5">5 unidades</option>
-    </select>
+        <input
+            type="text"
+            id="nome"
+        >
 
-    <button id="registrarBtn">
-        Registrar Compra
-    </button>
+        <label for="telefone">
+            Telefone com DDD
+        </label>
+
+        <input
+            type="tel"
+            id="telefone"
+        >
+
+        <button type="button" id="entrarBtn">
+            Entrar
+        </button>
+
+        <div class="instagram">
+            https://instagram.com/donade.confeitaria
+                @donade.confeitaria
+            </a>
+        </div>
+
+    </form>
 
 </div>
-        </form>
-
-    </div>
 
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 import {
-getDatabase,
-ref,
-get,
-set
+    getDatabase,
+    ref,
+    get,
+    set
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyByPVL7_1BNkWzv-WbnQ-EM3zjUyA9Qflc",
+    apiKey: "SUA_API_KEY",
     authDomain: "donadeconfe.firebaseapp.com",
     projectId: "donadeconfe",
     storageBucket: "donadeconfe.firebasestorage.app",
@@ -225,19 +162,23 @@ const db = getDatabase(app);
 
 const botao = document.getElementById("entrarBtn");
 
-botao.addEventListener("click", async function(){
+botao.addEventListener("click", async () => {
 
     botao.disabled = true;
 
     try {
 
-        const nome = document.getElementById("nome").value.trim();
-        const telefone = document
-    .getElementById("telefone")
-    .value
-    .replace(/\D/g, "");
+        const nome =
+            document.getElementById("nome")
+            .value
+            .trim();
 
-        if (!nome || !telefone) {
+        const telefone =
+            document.getElementById("telefone")
+            .value
+            .replace(/\D/g, "");
+
+        if(!nome || !telefone){
             alert("Preencha nome e telefone.");
             return;
         }
@@ -246,63 +187,33 @@ botao.addEventListener("click", async function(){
 
         const snapshot = await get(clienteRef);
 
-        if (!snapshot.exists()) {
+        if(!snapshot.exists()){
 
-            await set(clienteRef, {
+            await set(clienteRef,{
                 nome,
                 telefone,
-                pontos: 0
+                pontos:0
             });
-
-            alert("Cadastro realizado com sucesso!");
-
-        } else {
-
-            alert("Bem-vindo de volta!");
 
         }
 
-    } catch (erro) {
+        localStorage.setItem("telefoneCliente", telefone);
+        localStorage.setItem("nomeCliente", nome);
 
-        console.error("Erro:", erro);
-        alert("Ocorreu um erro.");
+        window.location.href = "cartao.html";
+
+    } catch(erro){
+
+        console.error(erro);
+        alert("Erro ao acessar o sistema.");
 
     } finally {
 
         botao.disabled = false;
 
     }
-    const pontosCliente = 3;
-const totalNecessario = 15;
-
-const container = document.getElementById("pontos");
-
-for(let i = 1; i <= totalNecessario; i++){
-
-    const bolinha = document.createElement("div");
-
-    bolinha.classList.add("bolinha");
-
-    if(i <= pontosCliente){
-        bolinha.classList.add("preenchida");
-    }
-
-    container.appendChild(bolinha);
-}
-
-const faltam = totalNecessario - pontosCliente;
-
-document.getElementById("mensagem").innerText =
-`Faltam apenas ${faltam} unidades para você receber seu pão de mel tradicional!`;
-
-if(pontosCliente >= 15){
- 
-document.getElementById("mensagem").innerHTML =
-"🎉 Parabéns! Você ganhou um pão de mel tradicional!";
-}
 
 });
-    
 
 </script>
 
