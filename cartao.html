@@ -8,6 +8,45 @@
 
 <style>
 
+    label{
+    display:block;
+    margin-top:20px;
+    margin-bottom:10px;
+    font-weight:bold;
+    font-size:14px;
+}
+
+select{
+    width:100%;
+    padding:14px;
+    border:1px solid #eee;
+    background:#fcfcfc;
+    border-radius:12px;
+    margin-bottom:15px;
+    font-size:15px;
+}
+
+select:focus{
+    outline:none;
+    border-color:#e85d8c;
+    box-shadow:0 0 0 3px rgba(232,93,140,.15);
+}
+
+#registrarBtn{
+    width:100%;
+    border:none;
+    background:#e85d8c;
+    color:white;
+    padding:15px;
+    border-radius:12px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+#registrarBtn:hover{
+    background:#d94d7e;
+}
+
 body{
     background-color:#fff5f8;
     display:flex;
@@ -73,6 +112,22 @@ body{
     <p id="mensagem"></p>
 
     <div id="pontos" class="grade-pontos"></div>
+
+    <label for="qtdCompra">
+    Quantos docinhos você comprou hoje?
+</label>
+
+<select id="qtdCompra">
+    <option value="1">1 unidade</option>
+    <option value="2">2 unidades</option>
+    <option value="3">3 unidades</option>
+    <option value="4">4 unidades</option>
+    <option value="5">5 unidades</option>
+</select>
+
+<button id="registrarBtn">
+    Registrar compra
+</button>
 
 </div>
 
