@@ -138,9 +138,10 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/fireba
 import {
     getDatabase,
     ref,
-    get
+    get,
+    push,
+    set
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
-
     const firebaseConfig = {
     apiKey: "AIzaSyByPVL7_1BNkWzv-WbnQ-EM3zjUyA9Qflc",
     authDomain: "donadeconfe.firebaseapp.com",
@@ -207,6 +208,70 @@ if(snapshot.exists()){
     document.getElementById("mensagem").innerText =
     `Faltam apenas ${faltam} unidades para ganhar seu prêmio!`;
 }
+
+const btnRegistrar =
+    document.getElementById("registrarBtn");
+
+btnRegistrar.addEventListener("click", async () => {
+
+    try {
+
+        const quantidade =
+            Number(
+                document.getElementById("qtdCompra").value
+            );
+
+        const telefone =
+            localStorage.getItem("telefoneCliente");
+
+        const clienteRef =
+            ref(db, "clientes/" + telefone);
+
+        const snapshot =
+            await get(clienteRef);
+
+        if(!snapshot.exists()){
+            alert("Cliente não encontrado.");
+            return;
+        }
+
+        const cliente = snapshot.val();
+
+        const solicitacoesRef =
+            ref(db, "solicitacoes");
+
+        const novaSolicitacao =
+            push(solicitacoesRef);
+
+        await set(novaSolicitacao, {
+
+            nome: cliente.nome,
+
+            telefone: cliente.telefone,
+
+            quantidade: quantidade,
+
+            data: new Date().toLocaleDateString("pt-BR"),
+
+            status: "pendente"
+
+        });
+
+        alert(
+            "Solicitação enviada para aprovação!"
+        );
+
+    } catch(erro){
+
+        console.error(erro);
+
+        alert(
+            "Erro ao registrar solicitação."
+        );
+
+    }
+
+});
     
     
 </script>
