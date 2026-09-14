@@ -131,36 +131,68 @@ body{
 
 </div>
 
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+import {
+    getDatabase,
+    ref,
+    get
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
+
 <script>
 
-const pontosCliente = 3;
-const totalNecessario = 15;
+const telefone = localStorage.getItem("telefoneCliente");
 
-const container = document.getElementById("pontos");
-    
-   const nome = localStorage.getItem("nomeCliente");
+if(!telefone){
 
-document.getElementById("saudacao").innerText =
-nome ? `Olá, ${nome}!` : "Olá, Cliente!";
+    window.location.href = "index.html";
 
-for(let i=1; i<=totalNecessario; i++){
-
-    const bolinha = document.createElement("div");
-
-    bolinha.classList.add("bolinha");
-
-    if(i <= pontosCliente){
-        bolinha.classList.add("preenchida");
-    }
-
-    container.appendChild(bolinha);
 }
 
-const faltam = totalNecessario - pontosCliente;
+const clienteRef = ref(db, "clientes/" + telefone);
 
-document.getElementById("mensagem").innerText =
-`Faltam apenas ${faltam} unidades para ganhar seu pão de mel!`;
+const snapshot = await get(clienteRef);
 
+if(snapshot.exists()){
+
+    const cliente = snapshot.val();
+
+    document.getElementById("saudacao").innerText =
+        `Olá, ${cliente.nome}!`;
+
+    carregarPontos(cliente.pontos);
+
+}
+
+    function carregarPontos(pontosCliente){
+
+    const totalNecessario = 15;
+
+    const container = document.getElementById("pontos");
+
+    container.innerHTML = "";
+
+    for(let i = 1; i <= totalNecessario; i++){
+
+        const bolinha = document.createElement("div");
+
+        bolinha.classList.add("bolinha");
+
+        if(i <= pontosCliente){
+            bolinha.classList.add("preenchida");
+        }
+
+        container.appendChild(bolinha);
+    }
+
+    const faltam = totalNecessario - pontosCliente;
+
+    document.getElementById("mensagem").innerText =
+    `Faltam apenas ${faltam} unidades para ganhar seu prêmio!`;
+}
+    
 </script>
 
 </body>
