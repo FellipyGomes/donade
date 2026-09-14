@@ -141,9 +141,20 @@ import {
     get
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
 
-<script>
+    const firebaseConfig = {
+    apiKey: "AIzaSyByPVL7_1BNkWzv-WbnQ-EM3zjUyA9Qflc",
+    authDomain: "donadeconfe.firebaseapp.com",
+    projectId: "donadeconfe",
+    storageBucket: "donadeconfe.firebasestorage.app",
+    messagingSenderId: "157881255215",
+    appId: "1:157881255215:web:212f1c5906436c1879cdda"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
 const telefone = localStorage.getItem("telefoneCliente");
+    console.log("Telefone:", telefone);
 
 if(!telefone){
 
@@ -154,6 +165,9 @@ if(!telefone){
 const clienteRef = ref(db, "clientes/" + telefone);
 
 const snapshot = await get(clienteRef);
+    console.log("Telefone:", telefone);
+    console.log(snapshot.val());
+
 
 if(snapshot.exists()){
 
@@ -187,7 +201,7 @@ if(snapshot.exists()){
         container.appendChild(bolinha);
     }
 
-    const faltam = totalNecessario - pontosCliente;
+   const faltam = Math.max(0, totalNecessario - pontosCliente);
 
     document.getElementById("mensagem").innerText =
     `Faltam apenas ${faltam} unidades para ganhar seu prêmio!`;
